@@ -16,7 +16,7 @@ function genUrl($replace){
 }
 
 function genSortOrderUrl($obj){
-    return genUrl(['s' => $obj, 'o' => $_REQUEST['s']==$obj?($_REQUEST['o']=='asc'?'desc':'asc'):'asc']);
+    return genUrl(['s' => $obj, 'o' => ($_REQUEST['s']??'')==$obj?(($_REQUEST['o']??'')=='asc'?'desc':'asc'):'asc']);
 }
 ?>
 <div class="row">
@@ -29,24 +29,35 @@ function genSortOrderUrl($obj){
                 'asc' => '&#8593;',
                 'desc' => '&#8595;',
             ];
+            $s = $_REQUEST['s']??'';
             echo '
                 <tr>
                     <th>
-                        <a href="'.genSortOrderUrl('id').'">#</a>'.($_REQUEST['s']=='id'?$orders[$_REQUEST['o']??'asc']:'').'
+                        <a href="'.genSortOrderUrl('id').'">#</a>'.($s=='id'?$orders[$_REQUEST['o']??'asc']:'').'
                     </th>
                     <th>
-                        <a href="'.genSortOrderUrl('username').'">' . _l(L::tasksUsername) . '</a>'.($_REQUEST['s']=='username'?$orders[$_REQUEST['o']??'asc']:'').'
+                        <a href="'.genSortOrderUrl('username').'">' . _l(L::tasksUsername) . '</a>'.($s=='username'?$orders[$_REQUEST['o']??'asc']:'').'
                     </th>
                     <th>
-                        <a href="'.genSortOrderUrl('email').'">' . _l(L::mainEmail) . '</a>'.($_REQUEST['s']=='email'?$orders[$_REQUEST['o']??'asc']:'').'
+                        <a href="'.genSortOrderUrl('email').'">' . _l(L::mainEmail) . '</a>'.($s=='email'?$orders[$_REQUEST['o']??'asc']:'').'
                     </th>
                     <th>
-                        <a href="'.genSortOrderUrl('text').'">' . _l(L::tasksText) . '</a>'.($_REQUEST['s']=='text'?$orders[$_REQUEST['o']??'asc']:'').'
+                        <a href="'.genSortOrderUrl('text').'">' . _l(L::tasksText) . '</a>'.($s=='text'?$orders[$_REQUEST['o']??'asc']:'').'
                     </th>
                 </tr>
             ';
             foreach ($tasks as $task) {
-                echo '<tr><td>'.$task->id.'</td><td>' . htmlspecialchars($task->username) . '</td><td>' . htmlspecialchars($task->email) . '</td><td><div class="text">' . htmlspecialchars($task->text_start) . '</div></td></tr>';
+                echo '
+                    <tr>
+                        <td>
+                            '.$task->id.'<br />
+                            <a href="/task/done/?tid='.$task->id.'&s='.($task->done?'0':'1').'">'.($task->done?'Снять отметку':'Пометить как сделано').'<br /></a>
+                        </td>
+                        <td>' . htmlspecialchars($task->username) . '</td>
+                        <td>' . htmlspecialchars($task->email) . '</td>
+                        <td><div class="text">' . htmlspecialchars($task->text_start) . '</div></td>
+                    </tr>
+                ';
             }
         }else{
             $columns = 1;

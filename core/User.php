@@ -13,6 +13,9 @@ class User extends DBObject{
     use Singleton;
     static $TABLE = 'users';
 
+    const TYPE_ADMIN = 'ADMIN';
+    const TYPE_USER = 'USER';
+
     /**
      * Init instance of User
      * @return bool

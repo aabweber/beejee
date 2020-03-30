@@ -13,6 +13,7 @@ class Task extends DBObject {
     const REQUIRED_FIELDS   = ['username', 'email', 'text'];
 
 
+
     function __set($var, $val){
         if($var=='text') {
             $this->text_start = mb_substr($val, 0, 100);

@@ -31,13 +31,14 @@ class Site extends Framework
         '/' => ['object' => 'static', 'dispatcher' => 'cmdGetMain', 'params' => [], 'public' => true],
         '/task/list/' => ['object' => 'task', 'action'=>'list', 'dispatcher' => 'cmdListTasks', 'params' => [':p', ':s', ':o'], 'public' => true],
         '/task/get/' => ['object' => 'task', 'action'=>'get', 'dispatcher' => 'cmdGetTask', 'params' => [':tid'], 'public' => true],
-        '/task/save/' => ['object' => 'task', 'action'=>'save', 'dispatcher' => 'cmdSaveTask', 'params' => [':task'], 'public' => true],
         '/user/auth/' => ['object' => 'user', 'action'=>'auth', 'dispatcher' => 'cmdAuthUser', 'params' => [':name', ':password', ':a', ':redirect'], 'public' => true],
-        '/user/logout/' => ['object' => 'user', 'action'=>'logout', 'dispatcher' => 'cmdLogoutUser', 'params' => [], 'public' => true],
 
         /**
          * PRIVATE ACTIONS
          */
+        '/task/done/' => ['object' => 'task', 'action'=>'done', 'dispatcher' => 'cmdDoneTask', 'params' => [':tid', ':s']],
+        '/user/logout/' => ['object' => 'user', 'action'=>'logout', 'dispatcher' => 'cmdLogoutUser', 'params' => []],
+        '/task/save/' => ['object' => 'task', 'action'=>'save', 'dispatcher' => 'cmdSaveTask', 'params' => [':task']],
     ];
 
     const ALLOWED_ORDERS    = ['asc', 'desc'];
@@ -55,8 +56,11 @@ class Site extends Framework
     function checkActionAccess($params){
         if(!($params['public']??false)){
             // private
-            header('Location: '.INFO['BASE_URL'].'user/auth/?redirect='.urlencode($_SERVER['REFERRER']));
-            exit;
+            if(!($user = User::get()) || $user->type!=User::TYPE_ADMIN){
+//                print_r($_SERVER);exit;
+                header('Location: ' . INFO['BASE_URL'] . 'user/auth/?redirect=' . urlencode($_SERVER['REQUEST_URI']));
+                exit;
+            }
         }
     }
 
@@ -66,7 +70,11 @@ class Site extends Framework
             if(!User::login($name, $password)){
                 ReturnData::setPrevMessage(RetErr(_l(L::loginIncorrectCreds)));
             }
-            VisitHistory::go(-1);
+            if($redirect){
+                header('Location: ' . INFO['BASE_URL'] . ltrim($redirect, '/'));
+            }else{
+                VisitHistory::go(-1);
+            }
         }
         return RetOk($data);
     }
@@ -148,6 +156,7 @@ class Site extends Framework
             $task->username = $taskInfo['username'];
             $task->email = $taskInfo['email'];
             $task->text = $taskInfo['text'];
+            $task->edited = 1;
             $task->commit();
             ReturnData::setPrevMessage(RetOk(_l(L::tasksSavedOne, $taskInfo['id'])));
             header('Location: '.INFO['BASE_URL'].'task/list');
@@ -162,6 +171,17 @@ class Site extends Framework
         }
     }
 
+    function cmdDoneTask($taskId, $done){
+        $task = Task::getById($taskId);
+        if(!$task){
+            ReturnData::setPrevMessage(RetErr(_l(L::tasksNoTask, $taskId)));
+            VisitHistory::go(-1);
+        }
+        $task->done = intval(boolval($done));
+        $task->commit();
+        header('Location: '.INFO['BASE_URL'].'task/list/?p='.($_REQUEST['p']??'').'&s='.($_REQUEST['s']??'').'&o='.($_REQUEST['o']??''));
+        exit;
+    }
 
     function cmdGetMain(){
         header('Location: '.INFO['BASE_URL'].'task/list/');
