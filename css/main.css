@@ -1,0 +1,54 @@
+html, body{
+    min-height: 100%;
+    height: 100%;
+    margin: 0 !important;
+    padding: 0;
+    width: 100%;
+}
+
+.bold{
+    font-weight: bold;
+}
+
+table{
+    width: 100%;
+}
+th{
+    text-align: center;
+}
+.table{
+    display: table;
+}
+.table .tr{
+    display: table-row;
+}
+.table .tr .td{
+    display: table-cell;
+}
+
+/*.col-xs*/
+/*.intro .info .descr-info {*/
+/*    padding-top: 10px;*/
+/*}*/
+/*@media (min-width:576px) {*/
+/*.col-sm*/
+/*.intro .info .descr-info {*/
+/*    padding-top: 0;*/
+/*}*/
+/*}*/
+/*@media (min-width:768px) {*/
+/*    !*.col-md*!*/
+/*    .intro .info .descr-info {*/
+/*    }*/
+/*}*/
+/*@media (min-width:992px) {*/
+/*    !*.col-lg*!*/
+/*    .intro .info .descr-info {*/
+/*    }*/
+/*}*/
+/*@media (min-width:1200px) {*/
+/*    !*.col-xl*!*/
+/*    .intro .info .descr-info {*/
+/*    }*/
+/*}*/
+
