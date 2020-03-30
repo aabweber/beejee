@@ -51,7 +51,9 @@ function genSortOrderUrl($obj){
                     <tr>
                         <td>
                             '.$task->id.'<br />
-                            <a href="/task/done/?tid='.$task->id.'&s='.($task->done?'0':'1').'">'.($task->done?'Снять отметку':'Пометить как сделано').'<br /></a>
+                            <a href="/task/done/?tid='.$task->id.'&s='.($task->done?'0':'1').'">'.($task->done?'Снять отметку':'Пометить как сделано').'</a><br />
+                            <a href="/task/get/?tid='.$task->id.'">Редактировать</a><br />
+                            '.($task->edited?'Отредактировано':'').'
                         </td>
                         <td>' . htmlspecialchars($task->username) . '</td>
                         <td>' . htmlspecialchars($task->email) . '</td>

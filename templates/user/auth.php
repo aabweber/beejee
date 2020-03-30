@@ -14,7 +14,7 @@ echo '
     <div class="row">
         <form action="/user/auth/" method="post">
             <input type="hidden" name="a" value="auth"/>
-            <input type="hidden" name="redirect" value="'.($_REQUEST['redirect']??'').'"/>
+            <input type="hidden" name="redirect" value="'.($_REQUEST['redirect']??$_SERVER['HTTP_REFERER']).'"/>
             <table>
             <tr><td class="b">'._l(L::mainUsername).'</td><td><input type="text" name="name" placeholder="login"/></td></tr>
             <tr><td class="b">'._l(L::mainPassword).'</td><td><input type="password" name="password" placeholder="******"/></td></tr>
