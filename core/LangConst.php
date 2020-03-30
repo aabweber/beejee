@@ -99,8 +99,13 @@ interface LangConst{
         ];
     const mainLogin =
         [
-            Lang::RU => 'Логин',
+            Lang::RU => 'Войти',
             Lang::EN => 'Login',
+        ];
+    const mainLogout =
+        [
+            Lang::RU => 'Выйти',
+            Lang::EN => 'Logout',
         ];
     const mainStatus =
         [
@@ -144,11 +149,82 @@ interface LangConst{
         ];
 
 
+    /**
+     * @category Auth constants
+     */
+
     const loginIncorrectCreds =
         [
             Lang::RU => 'Неверный логин/пароль',
             Lang::EN => 'Incorrect login/password',
         ];
+    const loginAuthTitle =
+        [
+            Lang::RU => 'Авторизация',
+            Lang::EN => 'Auth',
+        ];
+
+    /**
+     * @category Tasks constants
+     */
+
+    const tasksTitle =
+        [
+            Lang::RU => 'Список задач',
+            Lang::EN => 'Task list',
+        ];
+    const tasksUsername =
+        [
+            Lang::RU => 'Имя пользователя',
+            Lang::EN => 'User name',
+        ];
+    const tasksEmail = self::mainEmail;
+    const tasksText =
+        [
+            Lang::RU => 'Текст',
+            Lang::EN => 'Text',
+        ];
+    const tasksEmptyList =
+        [
+            Lang::RU => 'Список задач пуст',
+            Lang::EN => 'No tasks yet',
+        ];
+    const tasksNoTask =
+        [
+            Lang::RU => 'Нет задачи #%s',
+            Lang::EN => 'Task #%s does not exists',
+        ];
+    const tasksTitleSave =
+        [
+            Lang::RU => 'Редактирование задачи',
+            Lang::EN => 'Task editing',
+        ];
+    const tasksTitleAdd =
+        [
+            Lang::RU => 'Добавление задачи',
+            Lang::EN => 'Task adding',
+        ];
+    const tasksAddNew =
+        [
+            Lang::RU => 'Создать задачу',
+            Lang::EN => 'Create task',
+        ];
+    const tasksSavedOne =
+        [
+            Lang::RU => 'Задача #%s сохранена',
+            Lang::EN => 'Task #%s saved',
+        ];
+    const tasksAddedOne =
+        [
+            Lang::RU => 'Задача #%s добавлена',
+            Lang::EN => 'Task #%s added',
+        ];
+    const tasksNoData =
+        [
+            Lang::RU => 'Поле <b>%s</b> обязательно для заполнения',
+            Lang::EN => 'Field <b>%s</b> is required',
+        ];
+
 
 }
 

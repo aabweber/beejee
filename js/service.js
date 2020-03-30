@@ -18,5 +18,9 @@ $(function(){
         form.attr('action', _action);
         hidden.val(_hidden);
     });
+
+    $('.task-get form').on('submit', function(e){
+        $('.task-get form input[name="task[text]"]').val($('.task-get form .editable').html());
+    });
 });
 

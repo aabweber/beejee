@@ -7,6 +7,7 @@
  */
 
 use core\Site;
+use core\User;
 
 /**@var Site $this */
 
@@ -52,6 +53,30 @@ use core\Site;
     <div class="tr">
         <div class="td">
             <div class="container">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarToggler">
+                        <a class="navbar-brand" href="/">BeeJee</a>
+                        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                        </ul>
+                        <?php
+                        if($user = User::get()){
+                            echo $user->name.' - '.$user->type.' (<a href="/user/logout/">'._l(L::mainLogout).'</a>)';
+                        }else{
+                            echo '
+                                <form class="form-inline my-2 my-lg-0" action="/user/auth/" method="post">
+                                    <input type="hidden" name="a" value="auth"/>
+                                    <input class="form-control mr-sm-2" type="text" name="name" placeholder="login"/>
+                                    <input class="form-control mr-sm-2" type="password" name="password" placeholder="******"/>
+                                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" >'._l(L::mainLogin).'</button>
+                                </form>
+                            ';
+                        }
+                        ?>
+                    </div>
+                </nav>
             </div>
         </div>
     </div>
