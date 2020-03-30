@@ -102,6 +102,11 @@ interface LangConst{
             Lang::RU => 'Войти',
             Lang::EN => 'Login',
         ];
+    const mainUsername =
+        [
+            Lang::RU => 'Имя пользователя',
+            Lang::EN => 'User name',
+        ];
     const mainLogout =
         [
             Lang::RU => 'Выйти',

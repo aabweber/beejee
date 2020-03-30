@@ -80,12 +80,18 @@ class Site extends Framework
     }
 
     function cmdListTasks($page, $sort, $order){
-        $sort = in_array($sort, Task::ALLOWED_SORTS)?$sort:'';
-        if($sort) {
-            $sort .= ' ' . in_array($order, self::ALLOWED_ORDERS) ? $order : '';
+        if($sort=='text') {
+            $sort = 'text_start';
+        }else{
+            $sort = in_array($sort, Task::ALLOWED_SORTS) ? $sort : '';
         }
+        if($sort) {
+            $sort .= ' '.(in_array($order, self::ALLOWED_ORDERS) ? strtoupper($order) : '');
+        }
+        $tasksCnt = Task::calcCount([]);
         $data = [
-            'tasks' => Task::getList([], $sort, Constant::TASKS_PER_PAGE, intval($page)*Constant::TASKS_PER_PAGE)
+            'pages_cnt' => intval(($tasksCnt+Constant::TASKS_PER_PAGE-1)/Constant::TASKS_PER_PAGE),
+            'tasks' => Task::getList([], $sort, Constant::TASKS_PER_PAGE, intval($page)*Constant::TASKS_PER_PAGE),
         ];
         return RetOk($data);
     }
@@ -130,6 +136,7 @@ class Site extends Framework
     }
 
     function cmdSaveTask($taskInfo){
+        $taskInfo['text'] = html_entity_decode($taskInfo['text']??'');
         if($taskInfo['id']??false){
             // save task
             $task = Task::getById($taskInfo['id']);

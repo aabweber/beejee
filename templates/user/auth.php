@@ -16,7 +16,7 @@ echo '
             <input type="hidden" name="a" value="auth"/>
             <input type="hidden" name="redirect" value="'.$_SERVER['REFERRER'].'"/>
             <table>
-            <tr><td class="b">Login</td><td><input type="text" name="name" placeholder="login"/></td></tr>
+            <tr><td class="b">'._l(L::mainUsername).'</td><td><input type="text" name="name" placeholder="login"/></td></tr>
             <tr><td class="b">'._l(L::mainPassword).'</td><td><input type="password" name="password" placeholder="******"/></td></tr>
             <tr><td colspan="2" class="c"><input type="submit" class="btn btn-primary" value="'._l(L::mainLogin).'"/></td></tr>
             </table>

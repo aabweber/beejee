@@ -9,8 +9,9 @@ use misc\DBObject;
 
 class Task extends DBObject {
     static $TABLE = 'tasks';
-    const ALLOWED_SORTS     = ['username', 'email', 'text'];
+    const ALLOWED_SORTS     = ['id', 'username', 'email', 'text'];
     const REQUIRED_FIELDS   = ['username', 'email', 'text'];
+
 
     function __set($var, $val){
         if($var=='text') {

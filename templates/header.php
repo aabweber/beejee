@@ -68,7 +68,7 @@ use core\User;
                             echo '
                                 <form class="form-inline my-2 my-lg-0" action="/user/auth/" method="post">
                                     <input type="hidden" name="a" value="auth"/>
-                                    <input class="form-control mr-sm-2" type="text" name="name" placeholder="login"/>
+                                    <input class="form-control mr-sm-2" type="text" name="name" placeholder="'._l(L::mainUsername).'"/>
                                     <input class="form-control mr-sm-2" type="password" name="password" placeholder="******"/>
                                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit" >'._l(L::mainLogin).'</button>
                                 </form>

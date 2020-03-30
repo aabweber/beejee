@@ -1,7 +1,9 @@
 body{
     font-family: Tahoma, sans-serif;
 }
-
+.b{
+    font-weight: bold;
+}
 .body table{
     width: 100%;
 }
@@ -14,7 +16,6 @@ body{
 }
 .body table td.b{
     text-align: center;
-    font-weight: bold;
 }
 .body table td input{
     width: 100%;
